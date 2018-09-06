@@ -261,7 +261,7 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst markdown_image_1 = __webpack_require__(/*! ./markdown-image */ \"./src/widget/markdown-image.ts\");\nconst markdown_emoji_1 = __webpack_require__(/*! ./markdown-emoji */ \"./src/widget/markdown-emoji.ts\");\nconst markdown_link_1 = __webpack_require__(/*! ./markdown-link */ \"./src/widget/markdown-link.ts\");\nconst markdown_strikethrough_1 = __webpack_require__(/*! ./markdown-strikethrough */ \"./src/widget/markdown-strikethrough.ts\");\nfunction initWidget(editor) {\n    const doc = editor.getDoc();\n    doc.eachLine(line => {\n        markdown_image_1.MarkdownImage(editor, line);\n        markdown_emoji_1.MarkdownEmoji(editor, line);\n        markdown_link_1.MarkdownLink(editor, line);\n        markdown_strikethrough_1.MarkdownStrikethrough(editor, line);\n    });\n}\nexports.initWidget = initWidget;\n\n\n//# sourceURL=webpack:///./src/widget/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst markdown_image_1 = __webpack_require__(/*! ./markdown-image */ \"./src/widget/markdown-image.ts\");\nconst markdown_emoji_1 = __webpack_require__(/*! ./markdown-emoji */ \"./src/widget/markdown-emoji.ts\");\nconst markdown_link_1 = __webpack_require__(/*! ./markdown-link */ \"./src/widget/markdown-link.ts\");\nconst markdown_strikethrough_1 = __webpack_require__(/*! ./markdown-strikethrough */ \"./src/widget/markdown-strikethrough.ts\");\nconst markdown_italic_1 = __webpack_require__(/*! ./markdown-italic */ \"./src/widget/markdown-italic.ts\");\nfunction initWidget(editor) {\n    const doc = editor.getDoc();\n    doc.eachLine(line => {\n        markdown_image_1.MarkdownImage(editor, line);\n        markdown_emoji_1.MarkdownEmoji(editor, line);\n        markdown_link_1.MarkdownLink(editor, line);\n        markdown_strikethrough_1.MarkdownStrikethrough(editor, line);\n        markdown_italic_1.MarkdownItalic(editor, line);\n    });\n}\nexports.initWidget = initWidget;\n\n\n//# sourceURL=webpack:///./src/widget/index.ts?");
 
 /***/ }),
 
@@ -286,6 +286,18 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 
 "use strict";
 eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownImage(editor, line) {\n    const imageRegex = /^!\\[(.*?)\\]\\((.*?)\\)$/;\n    const match = line.text.match(imageRegex);\n    if (match) {\n        const image = document.createElement(\"img\");\n        image.className = \"markdown-image\";\n        image.src = match[2];\n        editor.widgets.push(editor.addLineWidget(line, image));\n    }\n}\nexports.MarkdownImage = MarkdownImage;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-image.ts?");
+
+/***/ }),
+
+/***/ "./src/widget/markdown-italic.ts":
+/*!***************************************!*\
+  !*** ./src/widget/markdown-italic.ts ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownItalic(editor, line) {\n    const strikethroughRegex = /\\*(.*?)\\*/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    if (!line.text.match(strikethroughRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = strikethroughRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-em`;\n            span.innerText = match[1];\n            const lineNo = line.lineNo();\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownItalic = MarkdownItalic;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-italic.ts?");
 
 /***/ }),
 
