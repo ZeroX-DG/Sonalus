@@ -2,6 +2,7 @@ import * as CodeMirror from "codemirror";
 import { initWidget } from "./widget";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/gfm/gfm";
+import "codemirror/addon/edit/continuelist";
 import "./styles/widget.sass";
 import "./styles/lineClass.sass";
 import { initActions } from "./actions";
@@ -19,7 +20,8 @@ export class Sonalus {
 
   init() {
     this.editor = CodeMirror(this.root, {
-      mode: "gfm"
+      mode: "gfm",
+      extraKeys: { Enter: "newlineAndIndentContinueMarkdownList" }
     });
 
     this.editor.setSize("100%", "100%");
@@ -36,8 +38,11 @@ export class Sonalus {
 
     this.editor.on("renderLine", (cm, line: LineHandle, elt) => {
       const imageRegex = /!\[(.*?)\]\((.*?)\)/;
+      const listRegex = /-\s(.*?)/;
       if (line.text.match(imageRegex)) {
         elt.classList.add("cm-image-url");
+      } else if (line.text.match(listRegex)) {
+        elt.classList.add("cm-list-item");
       }
     });
   }

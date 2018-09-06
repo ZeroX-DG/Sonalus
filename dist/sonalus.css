@@ -416,3 +416,6 @@ span.CodeMirror-selectedtext { background: none; }
   font-style: italic;
   color: green !important; }
 
+.cm-list-item span {
+  color: black !important; }
+
