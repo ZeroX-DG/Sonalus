@@ -24,14 +24,6 @@ export class Sonalus {
 
     this.editor.setSize("100%", "100%");
     (<any>this.editor).widgets = [];
-    this.editor.on("change", () => {
-      this.editor.operation(() => {
-        (<any>this.editor).widgets.forEach(widget => {
-          widget.clear();
-        });
-        initWidget(this.editor);
-      });
-    });
 
     this.editor.on("cursorActivity", () => {
       this.editor.operation(() => {

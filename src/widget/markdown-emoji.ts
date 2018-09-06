@@ -1,8 +1,9 @@
 import * as emojiList from "emojis-list";
 import * as emojiKeywords from "emojis-keywords";
 
-export function MarkdownEmoji(editor: CodeMirror.Doc, line): boolean {
-  const emojiRegex = /:(.*?):/g;
+export function MarkdownEmoji(editor: CodeMirror.Editor, line): void {
+  const emojiRegex = /:([A-Za-z]*?):/g;
+  const doc = editor.getDoc();
   if (line.text.match(emojiRegex)) {
     let match;
     while ((match = emojiRegex.exec(line.text))) {
@@ -13,13 +14,12 @@ export function MarkdownEmoji(editor: CodeMirror.Doc, line): boolean {
       if (emojiIndex !== -1) {
         const emojiChar = emojiList[emojiIndex];
         emojiSpan.innerText = emojiChar;
-        editor.markText(
+        doc.markText(
           { line: lineNo, ch: char },
           { line: lineNo, ch: char + match[0].length },
           { replacedWith: emojiSpan }
         );
       }
     }
-    return true;
   }
 }

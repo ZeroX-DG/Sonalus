@@ -1,8 +1,8 @@
 import { Editor } from "codemirror";
 
-export function MarkdownLink(editor: Editor, line): boolean {
-  const imageRegex = /\[(.*?)\]\((.*?)\)/;
-  const match = line.text.match(imageRegex);
+export function MarkdownLink(editor: Editor, line): void {
+  const linkRegex = /\[(.*?)\]\((.*?)\)/;
+  const match = line.text.match(linkRegex);
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
   if (
@@ -28,6 +28,5 @@ export function MarkdownLink(editor: Editor, line): boolean {
       { line: lineNo, ch: range.to },
       { replacedWith: link, clearOnEnter: true }
     );
-    return true;
   }
 }
