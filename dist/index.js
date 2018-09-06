@@ -195,6 +195,18 @@ eval("module.exports = [\n  \"🀄\",\n  \"🃏\",\n  \"🅰\",\n  \"🅱\",\n  
 
 /***/ }),
 
+/***/ "./src/actions/font.ts":
+/*!*****************************!*\
+  !*** ./src/actions/font.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction font(Sonalus) {\n    Sonalus.prototype.setFontSize = function (size) {\n        const editor = this.editor;\n        const element = editor.getWrapperElement();\n        element.style.fontSize = `${size}px`;\n        element.style.lineHeight = \"1.5em\";\n        editor.refresh();\n    };\n    Sonalus.prototype.setFontFamily = function (fontFamily) {\n        const editor = this.editor;\n        const element = editor.getWrapperElement();\n        element.style.fontFamily = fontFamily;\n        editor.refresh();\n    };\n}\nexports.font = font;\n\n\n//# sourceURL=webpack:///./src/actions/font.ts?");
+
+/***/ }),
+
 /***/ "./src/actions/index.ts":
 /*!******************************!*\
   !*** ./src/actions/index.ts ***!
@@ -203,7 +215,7 @@ eval("module.exports = [\n  \"🀄\",\n  \"🃏\",\n  \"🅰\",\n  \"🅱\",\n  
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction initActions(Sonalus) {\n    Sonalus.prototype.setFontSize = function (size) {\n        const editor = this.editor;\n        const element = editor.getWrapperElement();\n        element.style.fontSize = `${size}px`;\n        element.style.lineHeight = \"1.5em\";\n        editor.refresh();\n    };\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
 
 /***/ }),
 
