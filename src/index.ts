@@ -33,6 +33,15 @@ export class Sonalus {
       });
     });
 
+    this.editor.on("cursorActivity", () => {
+      this.editor.operation(() => {
+        (<any>this.editor).widgets.forEach(widget => {
+          widget.clear();
+        });
+        initWidget(this.editor);
+      });
+    });
+
     this.editor.on("renderLine", (cm, line: LineHandle, elt) => {
       const imageRegex = /!\[(.*?)\]\((.*?)\)/;
       if (line.text.match(imageRegex)) {
