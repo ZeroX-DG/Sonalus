@@ -226,7 +226,19 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nconst value_1 = __webpack_require__(/*! ./value */ \"./src/actions/value.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n    value_1.value(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
+
+/***/ }),
+
+/***/ "./src/actions/value.ts":
+/*!******************************!*\
+  !*** ./src/actions/value.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction value(Sonalus) {\n    Sonalus.prototype.setValue = function (value) {\n        const editor = this.editor;\n        editor.setValue(value);\n    };\n    Sonalus.prototype.getValue = function (value) {\n        const editor = this.editor;\n        return editor.getValue();\n    };\n}\nexports.value = value;\n\n\n//# sourceURL=webpack:///./src/actions/value.ts?");
 
 /***/ }),
 

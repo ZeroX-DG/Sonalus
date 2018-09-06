@@ -21,8 +21,19 @@
 <script>
   const element = document.getElementById('editor')
   const editor = new Sonalus(element)
+  const defaultMarkdown = `# Sonalus
+This markdown editor supports:
+- emoji :smile: :tada:
+- Links [Google](google.com)
+- *Italic text* , **Bold text** and ***Bold italic text***
+- [ ] And checkboxes
+
+Images also!
+
+![](https://codemirror.net/doc/logo.png)`
   editor.setFontSize(20)
   editor.setFontFamily('Fira Code')
+  editor.setValue(defaultMarkdown)
 </script>
 
 </html>
