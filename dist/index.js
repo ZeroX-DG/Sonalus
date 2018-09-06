@@ -261,7 +261,7 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst markdown_image_1 = __webpack_require__(/*! ./markdown-image */ \"./src/widget/markdown-image.ts\");\nconst markdown_emoji_1 = __webpack_require__(/*! ./markdown-emoji */ \"./src/widget/markdown-emoji.ts\");\nconst markdown_link_1 = __webpack_require__(/*! ./markdown-link */ \"./src/widget/markdown-link.ts\");\nconst markdown_text_effect_1 = __webpack_require__(/*! ./markdown-text-effect */ \"./src/widget/markdown-text-effect.ts\");\nfunction initWidget(editor) {\n    const doc = editor.getDoc();\n    doc.eachLine(line => {\n        markdown_image_1.MarkdownImage(editor, line);\n        markdown_emoji_1.MarkdownEmoji(editor, line);\n        markdown_link_1.MarkdownLink(editor, line);\n        markdown_text_effect_1.MarkdownTextEffect(editor, line);\n    });\n}\nexports.initWidget = initWidget;\n\n\n//# sourceURL=webpack:///./src/widget/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst markdown_image_1 = __webpack_require__(/*! ./markdown-image */ \"./src/widget/markdown-image.ts\");\nconst markdown_emoji_1 = __webpack_require__(/*! ./markdown-emoji */ \"./src/widget/markdown-emoji.ts\");\nconst markdown_link_1 = __webpack_require__(/*! ./markdown-link */ \"./src/widget/markdown-link.ts\");\nconst markdown_strikethrough_1 = __webpack_require__(/*! ./markdown-strikethrough */ \"./src/widget/markdown-strikethrough.ts\");\nfunction initWidget(editor) {\n    const doc = editor.getDoc();\n    doc.eachLine(line => {\n        markdown_image_1.MarkdownImage(editor, line);\n        markdown_emoji_1.MarkdownEmoji(editor, line);\n        markdown_link_1.MarkdownLink(editor, line);\n        markdown_strikethrough_1.MarkdownStrikethrough(editor, line);\n    });\n}\nexports.initWidget = initWidget;\n\n\n//# sourceURL=webpack:///./src/widget/index.ts?");
 
 /***/ }),
 
@@ -301,15 +301,15 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 
 /***/ }),
 
-/***/ "./src/widget/markdown-text-effect.ts":
-/*!********************************************!*\
-  !*** ./src/widget/markdown-text-effect.ts ***!
-  \********************************************/
+/***/ "./src/widget/markdown-strikethrough.ts":
+/*!**********************************************!*\
+  !*** ./src/widget/markdown-strikethrough.ts ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownTextEffect(editor, line) {\n    const strikethroughRegex = /~~(.*?)~~/;\n    const boldRegex = /\\*\\*(.*?)\\*\\*/;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    let match = null;\n    let effectType = \"strikethrough\";\n    if (line.text.match(strikethroughRegex)) {\n        match = line.text.match(strikethroughRegex);\n        effectType = \"strikethrough\";\n    }\n    else if (line.text.match(boldRegex)) {\n        match = line.text.match(boldRegex);\n        effectType = \"strong\";\n    }\n    if (match &&\n        line.text[match.index] !== \"!\" &&\n        (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n        const range = {\n            from: match.index,\n            to: match.index + match[0].length\n        };\n        const span = document.createElement(\"span\");\n        span.className = `cm-${effectType}`;\n        span.innerText = match[1];\n        const lineNo = line.lineNo();\n        doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n    }\n}\nexports.MarkdownTextEffect = MarkdownTextEffect;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-text-effect.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownStrikethrough(editor, line) {\n    const strikethroughRegex = /~~(.*?)~~/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    if (!line.text.match(strikethroughRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = strikethroughRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-strikethrough`;\n            span.innerText = match[1];\n            const lineNo = line.lineNo();\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownStrikethrough = MarkdownStrikethrough;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-strikethrough.ts?");
 
 /***/ })
 
