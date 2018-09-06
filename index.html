@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Sonalus | A modern markdown editor</title>
+  <link rel='stylesheet' href='./dev/font.css'>
+  <link rel='stylesheet' href='./dev/dev.css'>
+  <link rel='stylesheet' href='./dist/sonalus.css'>
+</head>
+
+<body>
+  <h1 class='title'>Sonalus</h1>
+  <p class='description'>A modern markdown editor</p>
+  <div id='editor'></div>
+</body>
+<script src='dist/index.js'></script>
+<script>
+  const element = document.getElementById('editor')
+  const editor = new Sonalus(element)
+  editor.setFontSize(20)
+</script>
+
+</html>

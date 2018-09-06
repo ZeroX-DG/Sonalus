@@ -1,0 +1,11 @@
+{
+  "include": ["src/**/*.ts"],
+  "compileOnSave": true,
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "esnext",
+    "allowJs": true,
+    "outDir": "dist"
+  }
+}
