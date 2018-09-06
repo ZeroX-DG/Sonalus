@@ -1,14 +1,14 @@
 import { Editor } from "codemirror";
 
 export function MarkdownItalic(editor: Editor, line): void {
-  const strikethroughRegex = /\*(.*?)\*/g;
+  const italicRegex = /\*(.*?)\*/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
-  if (!line.text.match(strikethroughRegex)) {
+  if (!line.text.match(italicRegex)) {
     return;
   }
   let match = null;
-  while ((match = strikethroughRegex.exec(line.text))) {
+  while ((match = italicRegex.exec(line.text))) {
     if (
       match &&
       (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
