@@ -7,7 +7,7 @@ export function MarkdownLink(editor: Editor, line): void {
   const cursor = doc.getCursor();
   if (
     match &&
-    line.text[match.index] !== "!" &&
+    line.text[match.index - 1] !== "!" &&
     (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
   ) {
     const range = {
