@@ -345,6 +345,7 @@ div.CodeMirror-dragcursors {
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
 
+@charset "UTF-8";
 .markdown-image {
   display: block;
   margin: 20px auto; }
@@ -360,6 +361,23 @@ span.CodeMirror-selectedtext { background: none; }
   .link-button .link-icon {
     font-size: 0.8em;
     margin-right: 5px; }
+
+.markdown-checkbox {
+  -webkit-appearance: none;
+  border: 1px solid black;
+  border-radius: 2px;
+  position: relative;
+  width: 1.5em;
+  height: 1.5em;
+  outline: none;
+  bottom: -0.4em;
+  margin-right: 7px; }
+  .markdown-checkbox:checked::before {
+    content: '\2714\FE0F';
+    position: absolute;
+    font-size: 1.3em;
+    left: 2px;
+    top: -2px; }
 
 .cm-image-url .cm-link {
   color: grey;

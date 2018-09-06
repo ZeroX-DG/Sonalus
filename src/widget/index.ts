@@ -6,6 +6,7 @@ import { MarkdownStrikethrough } from "./markdown-strikethrough";
 import { MarkdownItalic } from "./markdown-italic";
 import { MarkdownBold } from "./markdown-bold";
 import { MarkdownBoldItalic } from "./markdown-bold-italic";
+import { MarkdownCheckbox } from "./markdown-checkbox";
 
 export function initWidget(editor: Editor): void {
   const doc = editor.getDoc();
@@ -17,5 +18,6 @@ export function initWidget(editor: Editor): void {
     MarkdownBoldItalic(editor, line);
     MarkdownBold(editor, line);
     MarkdownItalic(editor, line);
+    MarkdownCheckbox(editor, line);
   });
 }

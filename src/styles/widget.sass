@@ -12,3 +12,20 @@
   .link-icon
     font-size: 0.8em
     margin-right: 5px
+
+.markdown-checkbox
+  -webkit-appearance: none
+  border: 1px solid black
+  border-radius: 2px
+  position: relative
+  width: 1.5em
+  height: 1.5em
+  outline: none
+  bottom: -0.4em
+  margin-right: 7px
+  &:checked::before
+    content: '✔️'
+    position: absolute
+    font-size: 1.3em
+    left: 2px
+    top: -2px
