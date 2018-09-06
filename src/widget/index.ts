@@ -4,6 +4,7 @@ import { MarkdownEmoji } from "./markdown-emoji";
 import { MarkdownLink } from "./markdown-link";
 import { MarkdownStrikethrough } from "./markdown-strikethrough";
 import { MarkdownItalic } from "./markdown-italic";
+import { MarkdownBold } from "./markdown-bold";
 
 export function initWidget(editor: Editor): void {
   const doc = editor.getDoc();
@@ -12,6 +13,7 @@ export function initWidget(editor: Editor): void {
     MarkdownEmoji(editor, line);
     MarkdownLink(editor, line);
     MarkdownStrikethrough(editor, line);
+    MarkdownBold(editor, line);
     MarkdownItalic(editor, line);
   });
 }

@@ -1,26 +1,24 @@
 import { Editor } from "codemirror";
 
-export function MarkdownItalic(editor: Editor, line): void {
-  const italicRegex = /\*(.+?)\*/g;
+export function MarkdownBold(editor: Editor, line): void {
+  const boldRegex = /\*\*(.+?)\*\*/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
-  if (!line.text.match(italicRegex)) {
+  if (!line.text.match(boldRegex)) {
     return;
   }
   let match = null;
-  while ((match = italicRegex.exec(line.text))) {
+  while ((match = boldRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length) &&
-      line.text[match.index - 1] !== "*" &&
-      line.text[match.index + match[0].length] !== "*"
+      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
     ) {
       const range = {
         from: match.index,
         to: match.index + match[0].length
       };
       const span = document.createElement("span");
-      span.className = `cm-em`;
+      span.className = `cm-strong`;
       span.innerText = match[1];
       const lineNo = line.lineNo();
       doc.markText(
