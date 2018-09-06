@@ -5,7 +5,6 @@ export function MarkdownLink(editor: Editor, line): boolean {
   const match = line.text.match(imageRegex);
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
-  console.log(line.text);
   if (
     match &&
     line.text[match.index] !== "!" &&
