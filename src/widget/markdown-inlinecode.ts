@@ -12,8 +12,8 @@ export function MarkdownInlineCode(editor: Editor, line): void {
     if (
       match &&
       (cursor.ch < match.index || cursor.ch > match.index + match[0].length) &&
-      line.text[match.index + 2] !== "*" &&
-      line.text[match.index + match[0].length] !== "*"
+      line.text[match.index + 2] !== "`" &&
+      line.text[match.index + match[0].length] !== "`"
     ) {
       const range = {
         from: match.index,
