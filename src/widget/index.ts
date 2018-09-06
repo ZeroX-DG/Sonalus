@@ -7,6 +7,7 @@ import { MarkdownItalic } from "./markdown-italic";
 import { MarkdownBold } from "./markdown-bold";
 import { MarkdownBoldItalic } from "./markdown-bold-italic";
 import { MarkdownCheckbox } from "./markdown-checkbox";
+import { MarkdownInlineCode } from "./markdown-inlinecode";
 
 export function initWidget(editor: Editor): void {
   const doc = editor.getDoc();
@@ -19,5 +20,6 @@ export function initWidget(editor: Editor): void {
     MarkdownBold(editor, line);
     MarkdownItalic(editor, line);
     MarkdownCheckbox(editor, line);
+    MarkdownInlineCode(editor, line);
   });
 }
