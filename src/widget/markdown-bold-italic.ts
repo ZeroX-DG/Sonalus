@@ -1,7 +1,7 @@
 import { Editor } from "codemirror";
 
 export function MarkdownBoldItalic(editor: Editor, line): void {
-  const boldItalicRegex = /\*\*\*(.+?)\*\*\*/g;
+  const boldItalicRegex = /(?<!\*)\*\*\*(?!\*)(.+?)(?<!\*)\*\*\*(?!\*)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
   if (!line.text.match(boldItalicRegex)) {
