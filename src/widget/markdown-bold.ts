@@ -1,7 +1,7 @@
 import { Editor } from "codemirror";
 
 export function MarkdownBold(editor: Editor, line): void {
-  const boldRegex = /\*\*(.+?)\*\*/g;
+  const boldRegex = /(?<!\*)\*\*(?!\*)(.+?)(?<!\*)\*\*(?!\*)|(?<!\_)\_\_(?!\_)(.+?)(?<!\_)\_\_(?!\_)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
   if (!line.text.match(boldRegex)) {
@@ -11,9 +11,7 @@ export function MarkdownBold(editor: Editor, line): void {
   while ((match = boldRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length) &&
-      line.text[match.index + 2] !== "*" &&
-      line.text[match.index + match[0].length] !== "*"
+      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
     ) {
       const range = {
         from: match.index,
@@ -21,7 +19,7 @@ export function MarkdownBold(editor: Editor, line): void {
       };
       const span = document.createElement("span");
       span.className = `cm-strong`;
-      span.innerText = match[1];
+      span.innerText = match[1] || match[2];
       const lineNo = line.lineNo();
       doc.markText(
         { line: lineNo, ch: range.from },
