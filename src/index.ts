@@ -1,11 +1,12 @@
 import * as CodeMirror from "codemirror";
 import { initWidget } from "./widget";
 import "codemirror/lib/codemirror.css";
-import "codemirror/mode/gfm/gfm";
 import "codemirror/addon/edit/continuelist";
 import "./styles/widget.sass";
 import "./styles/lineClass.sass";
 import { initActions } from "./actions";
+import "./mode/sonalus";
+import "codemirror/mode/javascript/javascript";
 
 export class Sonalus {
   private root: HTMLElement = null;
@@ -20,7 +21,7 @@ export class Sonalus {
 
   init() {
     this.editor = CodeMirror(this.root, {
-      mode: "gfm",
+      mode: "sonalus",
       extraKeys: { Enter: "newlineAndIndentContinueMarkdownList" }
     });
 
