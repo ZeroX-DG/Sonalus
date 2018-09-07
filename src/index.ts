@@ -30,9 +30,6 @@ export class Sonalus {
 
     this.editor.on("cursorActivity", () => {
       this.editor.operation(() => {
-        (<any>this.editor).widgets.forEach(widget => {
-          widget.clear();
-        });
         initWidget(this.editor);
       });
     });
