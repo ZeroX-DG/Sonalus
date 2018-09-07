@@ -19,6 +19,14 @@ export function MarkdownCheckbox(editor: Editor, line): void {
     const checkbox = document.createElement("input");
     checkbox.className = "markdown-checkbox";
     checkbox.type = "checkbox";
+    checkbox.onclick = () => {
+      const nextState = checkbox.checked ? "x" : " ";
+      doc.replaceRange(
+        nextState,
+        { line: lineNo, ch: range.from + 3 },
+        { line: lineNo, ch: range.from + 4 }
+      );
+    };
     if (match[1] === "x") {
       checkbox.checked = true;
     } else {
