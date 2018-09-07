@@ -8,6 +8,7 @@ import { MarkdownBold } from "./markdown-bold";
 import { MarkdownBoldItalic } from "./markdown-bold-italic";
 import { MarkdownCheckbox } from "./markdown-checkbox";
 import { MarkdownInlineCode } from "./markdown-inlinecode";
+import { MarkdownHighlight } from "./markdown-highlight";
 
 export function initWidget(editor: Editor): void {
   const doc = editor.getDoc();
@@ -21,5 +22,6 @@ export function initWidget(editor: Editor): void {
     MarkdownItalic(editor, line);
     MarkdownCheckbox(editor, line);
     MarkdownInlineCode(editor, line);
+    MarkdownHighlight(editor, line);
   });
 }

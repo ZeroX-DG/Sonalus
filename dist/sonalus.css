@@ -385,6 +385,9 @@ span.CodeMirror-selectedtext { background: none; }
   display: flex;
   align-items: center; }
 
+.cm-mark {
+  background: #feca57 !important; }
+
 .cm-image-url .cm-link {
   color: grey;
   text-decoration: none !important; }
