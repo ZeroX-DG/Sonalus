@@ -1,5 +1,3 @@
-import { Sonalus } from "..";
-
 export function font(Sonalus) {
   Sonalus.prototype.setFontSize = function(size: number) {
     const editor = <CodeMirror.Editor>this.editor;
