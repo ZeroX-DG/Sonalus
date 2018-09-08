@@ -1,9 +1,11 @@
 import { Editor } from "codemirror";
+import { allowBreakMark } from "./utils";
 
 export function MarkdownHighlight(editor: Editor, line): void {
   const highlightRegex = /\[mark\](.+?)\[endmark\]/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
+  const lineNo = line.lineNo();
   if (!line.text.match(highlightRegex)) {
     return;
   }
@@ -11,7 +13,9 @@ export function MarkdownHighlight(editor: Editor, line): void {
   while ((match = highlightRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
+      (cursor.ch < match.index ||
+        cursor.ch > match.index + match[0].length ||
+        cursor.line !== lineNo)
     ) {
       const range = {
         from: match.index,
@@ -20,7 +24,7 @@ export function MarkdownHighlight(editor: Editor, line): void {
       const span = document.createElement("span");
       span.className = `cm-mark`;
       span.innerText = match[1];
-      const lineNo = line.lineNo();
+      allowBreakMark(editor, lineNo, range, span, 6);
       doc.markText(
         { line: lineNo, ch: range.from },
         { line: lineNo, ch: range.to },

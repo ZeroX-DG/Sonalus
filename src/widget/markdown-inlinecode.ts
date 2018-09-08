@@ -1,4 +1,5 @@
 import { Editor } from "codemirror";
+import { allowBreakMark } from "./utils";
 
 export function MarkdownInlineCode(editor: Editor, line): void {
   const codeRegex = /`(.+?)`/g;
@@ -23,6 +24,7 @@ export function MarkdownInlineCode(editor: Editor, line): void {
       span.className = `inline-code`;
       span.innerText = match[1];
       const lineNo = line.lineNo();
+      allowBreakMark(editor, lineNo, range, span, 1);
       doc.markText(
         { line: lineNo, ch: range.from },
         { line: lineNo, ch: range.to },
