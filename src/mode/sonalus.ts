@@ -7,9 +7,12 @@ CodeMirror.defineMode("sonalus", function(config, parserConfig) {
   const overlay = {
     token: function(stream: CodeMirror.StringStream, state) {
       if (stream.sol()) {
-        if (stream.next() === ">") {
+        if (stream.peek() === ">") {
           stream.skipToEnd();
           return "line-quote";
+        } else if (stream.next() === "-" && stream.peek() === " ") {
+          stream.skipToEnd();
+          return "list-item";
         }
       }
       stream.next();

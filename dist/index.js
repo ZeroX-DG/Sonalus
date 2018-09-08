@@ -217,6 +217,18 @@ eval("module.exports = [\n  \"🀄\",\n  \"🃏\",\n  \"🅰\",\n  \"🅱\",\n  
 
 /***/ }),
 
+/***/ "./src/actions/events.ts":
+/*!*******************************!*\
+  !*** ./src/actions/events.ts ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction events(Sonalus) {\n    Sonalus.prototype.onChange = function (fn) {\n        const editor = this.editor;\n        editor.on(\"change\", fn);\n    };\n}\nexports.events = events;\n\n\n//# sourceURL=webpack:///./src/actions/events.ts?");
+
+/***/ }),
+
 /***/ "./src/actions/font.ts":
 /*!*****************************!*\
   !*** ./src/actions/font.ts ***!
@@ -237,7 +249,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nconst value_1 = __webpack_require__(/*! ./value */ \"./src/actions/value.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n    value_1.value(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nconst value_1 = __webpack_require__(/*! ./value */ \"./src/actions/value.ts\");\nconst events_1 = __webpack_require__(/*! ./events */ \"./src/actions/events.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n    value_1.value(Sonalus);\n    events_1.events(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
 
 /***/ }),
 
@@ -273,7 +285,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst CodeMirror = __webpack_require__(/*! codemirror */ \"./node_modules/codemirror/lib/codemirror.js\");\n__webpack_require__(/*! codemirror/mode/gfm/gfm */ \"./node_modules/codemirror/mode/gfm/gfm.js\");\n__webpack_require__(/*! codemirror/addon/mode/overlay */ \"./node_modules/codemirror/addon/mode/overlay.js\");\nCodeMirror.defineMode(\"sonalus\", function (config, parserConfig) {\n    let codeDepth = 0;\n    const overlay = {\n        token: function (stream, state) {\n            if (stream.sol()) {\n                if (stream.next() === \">\") {\n                    stream.skipToEnd();\n                    return \"line-quote\";\n                }\n            }\n            stream.next();\n            return null;\n        }\n    };\n    return CodeMirror.overlayMode(CodeMirror.getMode(config, \"text/x-gfm\"), overlay);\n});\n\n\n//# sourceURL=webpack:///./src/mode/sonalus.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst CodeMirror = __webpack_require__(/*! codemirror */ \"./node_modules/codemirror/lib/codemirror.js\");\n__webpack_require__(/*! codemirror/mode/gfm/gfm */ \"./node_modules/codemirror/mode/gfm/gfm.js\");\n__webpack_require__(/*! codemirror/addon/mode/overlay */ \"./node_modules/codemirror/addon/mode/overlay.js\");\nCodeMirror.defineMode(\"sonalus\", function (config, parserConfig) {\n    let codeDepth = 0;\n    const overlay = {\n        token: function (stream, state) {\n            if (stream.sol()) {\n                if (stream.peek() === \">\") {\n                    stream.skipToEnd();\n                    return \"line-quote\";\n                }\n                else if (stream.next() === \"-\" && stream.peek() === \" \") {\n                    stream.skipToEnd();\n                    return \"list-item\";\n                }\n            }\n            stream.next();\n            return null;\n        }\n    };\n    return CodeMirror.overlayMode(CodeMirror.getMode(config, \"text/x-gfm\"), overlay);\n});\n\n\n//# sourceURL=webpack:///./src/mode/sonalus.ts?");
 
 /***/ }),
 
