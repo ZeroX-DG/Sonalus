@@ -217,6 +217,18 @@ eval("module.exports = [\n  \"🀄\",\n  \"🃏\",\n  \"🅰\",\n  \"🅱\",\n  
 
 /***/ }),
 
+/***/ "./src/actions/commands.ts":
+/*!*********************************!*\
+  !*** ./src/actions/commands.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction commands(Sonalus) {\n    Sonalus.prototype.execTextCommand = function (command) {\n        const editor = this.editor;\n        const doc = editor.getDoc();\n        const selection = doc.getSelection();\n        if (!selection) {\n            return;\n        }\n        switch (command) {\n            case \"bold\":\n                doc.replaceSelection(`**${selection}**`);\n                break;\n            case \"italic\":\n                doc.replaceSelection(`*${selection}*`);\n                break;\n        }\n    };\n}\nexports.commands = commands;\n\n\n//# sourceURL=webpack:///./src/actions/commands.ts?");
+
+/***/ }),
+
 /***/ "./src/actions/events.ts":
 /*!*******************************!*\
   !*** ./src/actions/events.ts ***!
@@ -249,7 +261,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nconst value_1 = __webpack_require__(/*! ./value */ \"./src/actions/value.ts\");\nconst events_1 = __webpack_require__(/*! ./events */ \"./src/actions/events.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n    value_1.value(Sonalus);\n    events_1.events(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst font_1 = __webpack_require__(/*! ./font */ \"./src/actions/font.ts\");\nconst value_1 = __webpack_require__(/*! ./value */ \"./src/actions/value.ts\");\nconst events_1 = __webpack_require__(/*! ./events */ \"./src/actions/events.ts\");\nconst commands_1 = __webpack_require__(/*! ./commands */ \"./src/actions/commands.ts\");\nfunction initActions(Sonalus) {\n    font_1.font(Sonalus);\n    value_1.value(Sonalus);\n    events_1.events(Sonalus);\n    commands_1.commands(Sonalus);\n}\nexports.initActions = initActions;\n\n\n//# sourceURL=webpack:///./src/actions/index.ts?");
 
 /***/ }),
 
