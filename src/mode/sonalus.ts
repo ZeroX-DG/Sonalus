@@ -15,6 +15,9 @@ CodeMirror.defineMode("sonalus", function(config, parserConfig) {
           return "list-item";
         }
       }
+      if (stream.match(/!\[(.*?)\]\((.*?)\)/)) {
+        return "line-image-url image-url";
+      }
       stream.next();
       return null;
     }

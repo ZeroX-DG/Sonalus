@@ -381,7 +381,7 @@ span.CodeMirror-selectedtext { background: none; }
   background: #2c3e50;
   color: white; }
 
-.cm-image-url span {
+.image-url span {
   display: flex;
   align-items: center; }
 

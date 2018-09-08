@@ -34,15 +34,15 @@ export class Sonalus {
       });
     });
 
-    this.editor.on("renderLine", (cm, line: LineHandle, elt) => {
-      const imageRegex = /!\[(.*?)\]\((.*?)\)/;
-      const listRegex = /-\s(.*?)/;
-      if (line.text.match(imageRegex)) {
-        elt.classList.add("cm-image-url");
-      } else if (line.text.match(listRegex)) {
-        elt.classList.add("cm-list-item");
-      }
-    });
+    // this.editor.on("renderLine", (cm, line: LineHandle, elt) => {
+    //   const imageRegex = /!\[(.*?)\]\((.*?)\)/;
+    //   const listRegex = /-\s(.*?)/;
+    //   if (line.text.match(imageRegex)) {
+    //     elt.classList.add("cm-image-url");
+    //   } else if (line.text.match(listRegex)) {
+    //     elt.classList.add("cm-list-item");
+    //   }
+    // });
   }
 }
 
