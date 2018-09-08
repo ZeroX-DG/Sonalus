@@ -10,7 +10,7 @@ CodeMirror.defineMode("sonalus", function(config, parserConfig) {
         if (stream.peek() === ">") {
           stream.skipToEnd();
           return "line-quote";
-        } else if (stream.next() === "-" && stream.peek() === " ") {
+        } else if (stream.match(/\s*\-\s./)) {
           stream.skipToEnd();
           return "list-item";
         }
