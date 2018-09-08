@@ -2,7 +2,7 @@ import { Editor } from "codemirror";
 import { allowBreakMark } from "./utils";
 
 export function MarkdownHighlight(editor: Editor, line): void {
-  const highlightRegex = /\[mark\](.+?)\[endmark\]/g;
+  const highlightRegex = /\<mark\>(.+?)\<\/mark\>/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
   const lineNo = line.lineNo();
