@@ -2,9 +2,10 @@ import { Editor } from "codemirror";
 import { allowBreakMark } from "./utils";
 
 export function MarkdownInlineCode(editor: Editor, line): void {
-  const codeRegex = /`(.+?)`/g;
+  const codeRegex = /(?<!\`)`(?!\`)(.+?)(?<!\`)`(?!\`)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
+  const lineNo = line.lineNo();
   if (!line.text.match(codeRegex)) {
     return;
   }
@@ -12,9 +13,9 @@ export function MarkdownInlineCode(editor: Editor, line): void {
   while ((match = codeRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length) &&
-      line.text[match.index + 2] !== "`" &&
-      line.text[match.index + match[0].length] !== "`"
+      (cursor.ch < match.index ||
+        cursor.ch > match.index + match[0].length ||
+        cursor.line !== lineNo)
     ) {
       const range = {
         from: match.index,
@@ -23,7 +24,6 @@ export function MarkdownInlineCode(editor: Editor, line): void {
       const span = document.createElement("span");
       span.className = `inline-code`;
       span.innerText = match[1];
-      const lineNo = line.lineNo();
       allowBreakMark(editor, lineNo, range, span, 1);
       doc.markText(
         { line: lineNo, ch: range.from },
