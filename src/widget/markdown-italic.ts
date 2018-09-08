@@ -1,4 +1,5 @@
 import { Editor } from "codemirror";
+import { getCaretPos } from "./utils";
 
 export function MarkdownItalic(editor: Editor, line): void {
   const italicRegex = /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)|(?<!\_)\_(?!\_)(.+?)(?<!\_)\_(?!\_)/g;
@@ -19,6 +20,12 @@ export function MarkdownItalic(editor: Editor, line): void {
       };
       const span = document.createElement("span");
       span.className = `cm-em`;
+      span.contentEditable = "true"; // allow us to find caret position
+      span.onclick = () => {
+        const caretPos = getCaretPos(span) + 2; // 2 is the generated *
+        doc.setCursor({ line: lineNo, ch: caretPos });
+        editor.focus();
+      };
       span.innerText = match[1] || match[2];
       const lineNo = line.lineNo();
       doc.markText(

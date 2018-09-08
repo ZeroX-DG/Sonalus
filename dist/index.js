@@ -415,7 +415,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownItalic(editor, line) {\n    const italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)|(?<!\\_)\\_(?!\\_)(.+?)(?<!\\_)\\_(?!\\_)/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    if (!line.text.match(italicRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = italicRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-em`;\n            span.innerText = match[1] || match[2];\n            const lineNo = line.lineNo();\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownItalic = MarkdownItalic;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-italic.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst utils_1 = __webpack_require__(/*! ./utils */ \"./src/widget/utils.ts\");\nfunction MarkdownItalic(editor, line) {\n    const italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)|(?<!\\_)\\_(?!\\_)(.+?)(?<!\\_)\\_(?!\\_)/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    if (!line.text.match(italicRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = italicRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-em`;\n            span.contentEditable = \"true\"; // allow us to find caret position\n            span.onclick = () => {\n                const caretPos = utils_1.getCaretPos(span) + 2; // 2 is the generated *\n                doc.setCursor({ line: lineNo, ch: caretPos });\n                editor.focus();\n            };\n            span.innerText = match[1] || match[2];\n            const lineNo = line.lineNo();\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownItalic = MarkdownItalic;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-italic.ts?");
 
 /***/ }),
 
@@ -440,6 +440,18 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 
 "use strict";
 eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction MarkdownStrikethrough(editor, line) {\n    const strikethroughRegex = /~~(.*?)~~/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    if (!line.text.match(strikethroughRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = strikethroughRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index || cursor.ch > match.index + match[0].length)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-strikethrough`;\n            span.innerText = match[1];\n            const lineNo = line.lineNo();\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownStrikethrough = MarkdownStrikethrough;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-strikethrough.ts?");
+
+/***/ }),
+
+/***/ "./src/widget/utils.ts":
+/*!*****************************!*\
+  !*** ./src/widget/utils.ts ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction getCaretPos(el) {\n    if (window.getSelection) {\n        const sel = window.getSelection();\n        if (sel.rangeCount) {\n            const range = sel.getRangeAt(0);\n            if (range.commonAncestorContainer.parentNode === el) {\n                return range.endOffset;\n            }\n        }\n    }\n    return 0;\n}\nexports.getCaretPos = getCaretPos;\n\n\n//# sourceURL=webpack:///./src/widget/utils.ts?");
 
 /***/ })
 
