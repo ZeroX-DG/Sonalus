@@ -5,6 +5,7 @@ export function MarkdownBold(editor: Editor, line): void {
   const boldRegex = /(?<!\*)\*\*(?!\*)(.+?)(?<!\*)\*\*(?!\*)|(?<!\_)\_\_(?!\_)(.+?)(?<!\_)\_\_(?!\_)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
+  const lineNo = line.lineNo();
   if (!line.text.match(boldRegex)) {
     return;
   }
@@ -12,14 +13,15 @@ export function MarkdownBold(editor: Editor, line): void {
   while ((match = boldRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
+      (cursor.ch < match.index ||
+        cursor.ch > match.index + match[0].length ||
+        cursor.line !== lineNo)
     ) {
       const range = {
         from: match.index,
         to: match.index + match[0].length
       };
       const span = document.createElement("span");
-      const lineNo = line.lineNo();
       span.className = `cm-strong`;
       allowBreakMark(editor, lineNo, range, span, 2);
       span.innerText = match[1] || match[2];

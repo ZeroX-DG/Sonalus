@@ -5,6 +5,7 @@ export function MarkdownItalic(editor: Editor, line): void {
   const italicRegex = /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)|(?<!\_)\_(?!\_)(.+?)(?<!\_)\_(?!\_)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
+  const lineNo = line.lineNo();
   if (!line.text.match(italicRegex)) {
     return;
   }
@@ -12,7 +13,9 @@ export function MarkdownItalic(editor: Editor, line): void {
   while ((match = italicRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
+      (cursor.ch < match.index ||
+        cursor.ch > match.index + match[0].length ||
+        cursor.line !== lineNo)
     ) {
       const range = {
         from: match.index,
@@ -21,7 +24,6 @@ export function MarkdownItalic(editor: Editor, line): void {
       const span = document.createElement("span");
       span.className = `cm-em`;
       span.innerText = match[1] || match[2];
-      const lineNo = line.lineNo();
       allowBreakMark(editor, lineNo, range, span, 1);
       doc.markText(
         { line: lineNo, ch: range.from },

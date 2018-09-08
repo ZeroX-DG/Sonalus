@@ -5,6 +5,7 @@ export function MarkdownBoldItalic(editor: Editor, line): void {
   const boldItalicRegex = /(?<!\*)\*\*\*(?!\*)(.+?)(?<!\*)\*\*\*(?!\*)/g;
   const doc = editor.getDoc();
   const cursor = doc.getCursor();
+  const lineNo = line.lineNo();
   if (!line.text.match(boldItalicRegex)) {
     return;
   }
@@ -12,7 +13,9 @@ export function MarkdownBoldItalic(editor: Editor, line): void {
   while ((match = boldItalicRegex.exec(line.text))) {
     if (
       match &&
-      (cursor.ch < match.index || cursor.ch > match.index + match[0].length)
+      (cursor.ch < match.index ||
+        cursor.ch > match.index + match[0].length ||
+        cursor.line !== lineNo)
     ) {
       const range = {
         from: match.index,
@@ -21,7 +24,6 @@ export function MarkdownBoldItalic(editor: Editor, line): void {
       const span = document.createElement("span");
       span.className = `cm-strong cm-em`;
       span.innerText = match[1];
-      const lineNo = line.lineNo();
       allowBreakMark(editor, lineNo, range, span, 3);
       doc.markText(
         { line: lineNo, ch: range.from },
