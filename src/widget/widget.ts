@@ -1,6 +1,13 @@
 import { Editor } from "codemirror";
 import { allowBreakMark } from "./utils";
 
+interface WidgetOption {
+  regex?: RegExp;
+  matchMany: boolean;
+  allowBreak: boolean;
+  breakOffset?: number;
+}
+
 export class WidgetCreator {
   editor: Editor;
   line: LineHandle;
@@ -12,7 +19,10 @@ export class WidgetCreator {
     this.lineNo = line.lineNo();
   }
 
-  createWidget({ regex, matchMany, allowBreak, breakOffset }, createElement) {
+  createWidget(
+    { regex, matchMany, allowBreak, breakOffset }: WidgetOption,
+    createElement
+  ) {
     if (matchMany) {
       this.createMatchManyWidget(regex, allowBreak, breakOffset, createElement);
     }
