@@ -415,7 +415,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst utils_1 = __webpack_require__(/*! ./utils */ \"./src/widget/utils.ts\");\nfunction MarkdownItalic(editor, line) {\n    const italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)|(?<!\\_)\\_(?!\\_)(.+?)(?<!\\_)\\_(?!\\_)/g;\n    const doc = editor.getDoc();\n    const cursor = doc.getCursor();\n    const lineNo = line.lineNo();\n    if (!line.text.match(italicRegex)) {\n        return;\n    }\n    let match = null;\n    while ((match = italicRegex.exec(line.text))) {\n        if (match &&\n            (cursor.ch < match.index ||\n                cursor.ch > match.index + match[0].length ||\n                cursor.line !== lineNo)) {\n            const range = {\n                from: match.index,\n                to: match.index + match[0].length\n            };\n            const span = document.createElement(\"span\");\n            span.className = `cm-em`;\n            span.innerText = match[1] || match[2];\n            utils_1.allowBreakMark(editor, lineNo, range, span, 1);\n            doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: span, clearOnEnter: true });\n        }\n    }\n}\nexports.MarkdownItalic = MarkdownItalic;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-italic.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst widget_1 = __webpack_require__(/*! ./widget */ \"./src/widget/widget.ts\");\nfunction MarkdownItalic(editor, line) {\n    const italicRegex = /(?<!\\*)\\*(?!\\*)(.+?)(?<!\\*)\\*(?!\\*)|(?<!\\_)\\_(?!\\_)(.+?)(?<!\\_)\\_(?!\\_)/g;\n    const widgetCreator = new widget_1.WidgetCreator(editor, line);\n    widgetCreator.createWidget({\n        regex: italicRegex,\n        matchMany: true,\n        allowBreak: true,\n        breakOffset: 1\n    }, (match) => {\n        const span = document.createElement(\"span\");\n        span.className = `cm-em`;\n        span.innerText = match[1] || match[2];\n        return span;\n    });\n}\nexports.MarkdownItalic = MarkdownItalic;\n\n\n//# sourceURL=webpack:///./src/widget/markdown-italic.ts?");
 
 /***/ }),
 
@@ -464,6 +464,18 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 
 "use strict";
 eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction getCaretPos(el) {\n    if (window.getSelection) {\n        const sel = window.getSelection();\n        if (sel.rangeCount) {\n            const range = sel.getRangeAt(0);\n            if (range.commonAncestorContainer.parentNode === el) {\n                return range.endOffset;\n            }\n        }\n    }\n    return 0;\n}\nexports.getCaretPos = getCaretPos;\nfunction allowBreakMark(editor, lineNo, range, el, offset) {\n    const doc = editor.getDoc();\n    el.contentEditable = \"true\"; // allow us to find caret position\n    el.onclick = () => {\n        const caretPos = getCaretPos(el) + offset;\n        doc.setCursor({ line: lineNo, ch: range.from + caretPos });\n        editor.focus();\n    };\n}\nexports.allowBreakMark = allowBreakMark;\n\n\n//# sourceURL=webpack:///./src/widget/utils.ts?");
+
+/***/ }),
+
+/***/ "./src/widget/widget.ts":
+/*!******************************!*\
+  !*** ./src/widget/widget.ts ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst utils_1 = __webpack_require__(/*! ./utils */ \"./src/widget/utils.ts\");\nclass WidgetCreator {\n    constructor(editor, line) {\n        this.editor = editor;\n        this.line = line;\n        this.lineNo = line.lineNo();\n    }\n    createWidget({ regex, matchMany, allowBreak, breakOffset }, createElement) {\n        if (matchMany) {\n            this.createMatchManyWidget(regex, allowBreak, breakOffset, createElement);\n        }\n    }\n    createMatchManyWidget(regex, allowBreak, breakOffset, createElement) {\n        const doc = this.editor.getDoc();\n        const cursor = doc.getCursor();\n        const line = this.line;\n        const lineNo = line.lineNo();\n        if (!line.text.match(regex)) {\n            return;\n        }\n        let match = null;\n        while ((match = regex.exec(line.text))) {\n            if (match &&\n                (cursor.ch < match.index ||\n                    cursor.ch > match.index + match[0].length ||\n                    cursor.line !== lineNo)) {\n                const range = {\n                    from: match.index,\n                    to: match.index + match[0].length\n                };\n                const element = createElement(match);\n                if (allowBreak) {\n                    utils_1.allowBreakMark(this.editor, lineNo, range, element, breakOffset);\n                }\n                doc.markText({ line: lineNo, ch: range.from }, { line: lineNo, ch: range.to }, { replacedWith: element, clearOnEnter: true });\n            }\n        }\n    }\n}\nexports.WidgetCreator = WidgetCreator;\n\n\n//# sourceURL=webpack:///./src/widget/widget.ts?");
 
 /***/ })
 
