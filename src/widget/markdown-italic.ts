@@ -22,8 +22,8 @@ export function MarkdownItalic(editor: Editor, line): void {
       span.className = `cm-em`;
       span.contentEditable = "true"; // allow us to find caret position
       span.onclick = () => {
-        const caretPos = getCaretPos(span) + 2; // 2 is the generated *
-        doc.setCursor({ line: lineNo, ch: caretPos });
+        const caretPos = getCaretPos(span) + 1; // 1 is the generated *
+        doc.setCursor({ line: lineNo, ch: range.from + caretPos });
         editor.focus();
       };
       span.innerText = match[1] || match[2];
