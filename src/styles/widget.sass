@@ -2,10 +2,16 @@
   text-decoration: none
   display: inline-block
   align-items: center
+  &:hover .link-icon
+    width: 20px
+    margin-right: 3px
+    opacity: 1
   .link-icon
     font-size: 1em
-    margin-right: 3px
     display: inline-block
+    width: 0px
+    opacity: 0
+    transition: width 0.3s, opacity 0.2s
 
 .markdown-checkbox
   -webkit-appearance: none

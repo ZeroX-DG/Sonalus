@@ -273,7 +273,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nconst 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction value(Sonalus) {\n    Sonalus.prototype.setValue = function (value) {\n        const editor = this.editor;\n        editor.setValue(value);\n    };\n    Sonalus.prototype.getValue = function (value) {\n        const editor = this.editor;\n        return editor.getValue();\n    };\n}\nexports.value = value;\n\n\n//# sourceURL=webpack:///./src/actions/value.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction value(Sonalus) {\n    Sonalus.prototype.setValue = function (value) {\n        const editor = this.editor;\n        editor.setValue(value);\n    };\n    Sonalus.prototype.getValue = function (value) {\n        const editor = this.editor;\n        return editor.getValue();\n    };\n    Sonalus.prototype.clear = function () {\n        const editor = this.editor;\n        editor.setValue('');\n    };\n}\nexports.value = value;\n\n\n//# sourceURL=webpack:///./src/actions/value.ts?");
 
 /***/ }),
 
