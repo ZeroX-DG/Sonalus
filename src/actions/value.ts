@@ -8,4 +8,9 @@ export function value(Sonalus) {
     const editor = <CodeMirror.Editor>this.editor;
     return editor.getValue();
   };
+
+  Sonalus.prototype.clear = function() {
+    const editor = <CodeMirror.Editor>this.editor;
+    editor.setValue('')
+  }
 }
