@@ -10,11 +10,6 @@
   <link rel='stylesheet' href='./dev/dev.css'>
   <link rel='stylesheet' href='./dist/sonalus.css'>
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
-  <style>
-    #editor {
-      height: 700px;
-    }
-  </style>
 </head>
 
 <body>
@@ -22,6 +17,20 @@
   <h1 class='title'>Sonalus</h1>
   <p class='description'>A modern markdown editor</p>
   <div id='editor'></div>
+
+  <div class="methods">
+      <h1>Editor methods:</h1>
+      <ul>
+        <li><code>setFontSize(size: number)</code> - Set font size of the editor</li>
+        <li><code>setFontFamily(font: string)</code> - Set font family of the editor</li>
+        <li><code>setValue(value: string)</code> - Set value of the editor</li>
+        <li><code>execTextCommand(command: string)</code> - Execute command on the selected text</li>
+      </ul>
+  </div>
+
+  <div class="footer">
+    <p>Made with ♥ by <a href="https://github.com/ZeroX-DG">Viet Hung Nguyen</a></p>
+  </div>
 </body>
 <script src='dist/index.js'></script>
 <script>

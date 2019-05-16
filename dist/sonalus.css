@@ -349,7 +349,8 @@ span.CodeMirror-selectedtext { background: none; }
 .link-button {
   text-decoration: none;
   display: inline-block;
-  align-items: center; }
+  align-items: center;
+  color: #5f27cd; }
   .link-button:hover .link-icon {
     width: 20px;
     margin-right: 10px;
