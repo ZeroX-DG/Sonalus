@@ -352,7 +352,7 @@ span.CodeMirror-selectedtext { background: none; }
   align-items: center; }
   .link-button:hover .link-icon {
     width: 20px;
-    margin-right: 3px;
+    margin-right: 10px;
     opacity: 1; }
   .link-button .link-icon {
     font-size: 1em;
@@ -372,11 +372,11 @@ span.CodeMirror-selectedtext { background: none; }
   bottom: -0.4em;
   margin-right: 7px; }
   .markdown-checkbox:checked::before {
-    content: '\2714\FE0F';
+    content: '\2713';
     position: absolute;
     font-size: 1.3em;
     left: 2px;
-    top: -2px; }
+    top: -5px; }
 
 .inline-code {
   padding: 2px 5px;
